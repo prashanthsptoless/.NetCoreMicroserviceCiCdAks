@@ -38,4 +38,5 @@ steps:
     command: 'publish'
     publishWebProjects: false
     arguments: '--configuration $(buildConfiguration) --no-restore'
+    modifyOutputPath: false
   displayName: 'Publish Artifact'
