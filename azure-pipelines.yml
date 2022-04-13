@@ -37,6 +37,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
+    projects: '**/CustomerApi.csproj'
     arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false
   displayName: 'Publish Artifact'
