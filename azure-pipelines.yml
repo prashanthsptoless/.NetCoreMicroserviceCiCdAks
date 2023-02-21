@@ -16,7 +16,7 @@ stages:
 - stage: build
   displayName: 'Build Nuget Package'
   jobs:
-    - job: 'CI-Build'
+    - job: 'CI_Build'
       displayName: 'Build Nuget Package'
       steps:
       - task: DotNetCoreCLI@2
