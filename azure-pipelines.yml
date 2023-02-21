@@ -12,32 +12,43 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
-  displayName: 'Restore Package'
+stages:
+- stage: build
+  displayName: 'Build Nuget Package'
+  jobs:
+    - job: 'CI Build'
+      displayName: 'Build Nuget Package'
+      steps:
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'restore'
+          projects: '**/*.csproj'
+        displayName: 'Restore Package'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--no-restore'
-  displayName: 'Build Project' 
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'build'
+          projects: '**/*.csproj'
+          arguments: '--no-restore'
+        displayName: 'Build Project' 
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*Test.csproj'
-    arguments: '--no-restore'
-  displayName: 'Test'
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'test'
+          projects: '**/*Test.csproj'
+          arguments: '--no-restore'
+        displayName: 'Test'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '**/CustomerApi.csproj'
-    arguments: '--configuration $(buildconfiguration) --no-restore'
-    modifyOutputPath: false
-  displayName: 'publish customer API'
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'publish'
+          publishWebProjects: false
+          projects: '**/CustomerApi.csproj'
+          arguments: '--configuration $(buildconfiguration) --no-restore'
+          modifyOutputPath: false
+        displayName: 'publish customer API'
+- stage: Deploy
+  dependsOn: build
+  displayName: 'publish package'
+  environment: nuget-publish
+  
