@@ -50,5 +50,8 @@ stages:
 - stage: Deploy
   dependsOn: build
   displayName: 'publish package'
-  environment: nuget-publish
+  jobs:
+    - deployment: publishinternal
+      displayName: 'Nuget-public packages'
+      environment: nuget-publish
   
