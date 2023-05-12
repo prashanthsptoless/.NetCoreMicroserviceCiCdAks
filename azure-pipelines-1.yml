@@ -30,7 +30,7 @@ steps:
     inputs:
       command: 'test'
       projects: '**/*Test.csproj'
-      arguments: '--no-restore'
+      #arguments: '--no-restore'
     displayName: 'running the tests'
   
   - task: DotNetCoreCLI@2
