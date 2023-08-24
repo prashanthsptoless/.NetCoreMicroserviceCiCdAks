@@ -38,3 +38,4 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false 
   displayName: 'Publish Customer API'
+  condition: and(succeeded(), eq(variables[Build.SourceBranch], 'ref/heads/master'))
