@@ -6,7 +6,6 @@
 name: DotnetCoreAPI-CI
 trigger:
 - master
-- CodeCoverage
 
 pool:
   vmImage: 'windows-latest'
