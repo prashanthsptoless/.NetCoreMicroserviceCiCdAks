@@ -14,5 +14,31 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-
+steps:
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'restore'
+      projects: '**/*.csproj'
+      feedsToUse: 'select'
+    displayName: 'Restore Dotnet Package'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      projects: '**/*.csproj'
+      arguments: '--no-restore'
+    displayName: 'Build Project'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'test'
+      projects: '**/*Test.csproj'
+      arguments: '--no-restore'
+    displayName: 'Run Unit Test'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      arguments: '--configuration $(buildConfiguration) --no-restore'
+      projects: '**/CustomerApi.csproj'
+      modifyOutputPath: false 
+    displayName: 'Publish CustomerAPI'
 
