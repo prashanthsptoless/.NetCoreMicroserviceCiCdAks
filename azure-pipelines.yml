@@ -24,7 +24,7 @@ parameters:
     - macOS-latest
 
 jobs:
-- job 
+- job: build
   displayName: build 
   pool:
     vmImage: ${{ parameters.image }}
