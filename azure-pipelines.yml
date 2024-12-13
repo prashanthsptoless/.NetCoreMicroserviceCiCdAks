@@ -8,10 +8,27 @@ name: NetCoreMicroserviceCiCd
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
+# pool:
+#   vmImage: ubuntu-latest
 
 variables:
   buildConfiguration: 'Release'
 
+parameters:
+  - name: image 
+    displayName: Pool Image 
+    type: string 
+    default: ubuntu-latest 
+    values:
+    - windows-latest
+    - ubuntu-latest 
+    - macOS-latest
+
+jobs:
+- build 
+  displayName: build 
+  pool:
+    vmImage: ${{ parameters.image }}
+  steps:
+  - script: echo "hello world"
 
