@@ -5,8 +5,7 @@
 # single stage single job dotnet core api pipeline
 
 name: NetCoreMicroserviceCiCd
-trigger:
-- master
+trigger: none 
 
 # pool:
 #   vmImage: ubuntu-latest
@@ -25,7 +24,7 @@ parameters:
     - macOS-latest
 
 jobs:
-- build 
+- job 
   displayName: build 
   pool:
     vmImage: ${{ parameters.image }}
